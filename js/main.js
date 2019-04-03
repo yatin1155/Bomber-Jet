@@ -1,6 +1,7 @@
 var toyModule = (function () {
     const $portletMain = $(".portletMain");
     const $attackBtn = $("#attackBtn");
+    var $plane = $(".plane");
     var myIntervalArray = [];
     let $bombElm = $(".bomb");
 
@@ -15,21 +16,22 @@ var toyModule = (function () {
     let utils = {
         attack: () => {
             var planeDir = DirState.direction;
-            var planePos = $(".plane").position();
+            var planePos = $plane.position();
             var parentWidth = $portletMain.width();
             var parentHeight = $portletMain.height();
+            var attackDistance = (2* $(".plane img").height());
             switch (planeDir) {
                 case "North": //North
-                    planePos.top -= 120;
+                    planePos.top -= attackDistance;
                     break;
                 case "South": //South
-                    planePos.top += 120;
+                    planePos.top += attackDistance;
                     break;
                 case "East": //East
-                    planePos.left += 120;
+                    planePos.left += attackDistance;
                     break;
                 case "West": //West
-                    planePos.left -= 120;
+                    planePos.left -= attackDistance;
                     break;
             }
             //rotate the explosion
@@ -125,16 +127,17 @@ var toyModule = (function () {
 
             var parentWidth = $portletMain.width();
             var parentHeight = $portletMain.height();
+            var planeHeight = $plane.find("img").height();
 
-            var top = parentHeight - ((y * 60) + 60);
-            var left = (x * 60);
+            var top = parentHeight - ((y * planeHeight) + planeHeight);
+            var left = (x * planeHeight);
 
             if ((top >= 0)) {
-                $(".plane").css("top", top);
+                $plane.css("top", top);
             }
 
             if (left < parentWidth) {
-                $(".plane").css("left", left);
+                $plane.css("left", left);
             }
 
 
@@ -178,7 +181,7 @@ var toyModule = (function () {
             });
         },
         setDirection: (dirPart) => {
-            var $plane = $(".plane");
+
             switch (dirPart) {
                 case "North": //North
                     DirState.degree = 0;
@@ -259,7 +262,7 @@ var toyModule = (function () {
                             var inputY = (this.$content.find('input#yPart')).val().trim();
                             var inputDirection = (this.$content.find('select#dirPart')).val().trim();
                             // validation logic
-                            if (isNaN(parseInt(inputX)) || parseInt(inputX) === 10 || parseInt(inputX) < 0  || (+inputX) - Math.floor(+inputX) !== 0) {
+                            if (isNaN(parseInt(inputX)) || parseInt(inputX) === 10 || parseInt(inputX) < 0 || (+inputX) - Math.floor(+inputX) !== 0) {
                                 errorMsg.push("X Coordinate");
                             } else {
                                 if (isNaN(parseInt(inputY)) || parseInt(inputY) === 10 || parseInt(inputY) < 0 || (+inputY) - Math.floor(+inputY) !== 0) {
@@ -297,6 +300,29 @@ var toyModule = (function () {
                     }
                 }
             });
+        },
+        checkMedia: () => {
+            var x = window.matchMedia("(max-width: 700px)")
+            if (x.matches) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        setWidthChanges: () => {
+          
+            if(utils.checkMedia()){
+                let cellWidth = $portletMain.width()/10;
+                let cellHeight = $portletMain.height()/10;
+                let $btnGroup = $(".btnGroup");
+                let $btnWidth = $(".btnGroup button").width();
+                //for plane layout
+                $(".plane img").width(cellWidth).height(cellHeight);
+                $(".bomb img").width(cellWidth).height(cellHeight);
+
+
+                $btnGroup.find("button").css("margin-left",(($btnGroup.width() - $btnWidth )/2 ) -15+"px");
+            }
         }
     };
 
@@ -311,7 +337,7 @@ var toyModule = (function () {
 
             previousAngle += 90;
             DirState.degree = previousAngle;
-            $(".plane").css({ "transform": " rotate(" + previousAngle + "deg)" });
+            $plane.css({ "transform": " rotate(" + previousAngle + "deg)" });
             DirState.bit = "Left";
             utils.updateDirection();
 
@@ -326,7 +352,7 @@ var toyModule = (function () {
 
             previousAngle -= 90;
             DirState.degree = previousAngle;
-            $(".plane").css({ "transform": " rotate(" + previousAngle + "deg)" });
+            $plane.css({ "transform": " rotate(" + previousAngle + "deg)" });
             DirState.bit = "Right";
             utils.updateDirection();
         });
@@ -362,6 +388,7 @@ var toyModule = (function () {
 
     var init = () => {
 
+        utils.setWidthChanges();
         $portletMain.css({ "background-image": " url(./images/grass2.jpg)" });
 
         // for initial info
