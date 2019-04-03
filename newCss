@@ -1,0 +1,49 @@
+body {
+  background-color:#26A2D3;
+  /* display: flex;
+  justify-content: center; */
+}
+  
+.dronetown {
+  width:100px;
+  /* float: right; */
+}
+.portletMain{
+  width: 604px;
+  height: 604px;
+  border: 2px solid black;
+  position: relative;
+  
+
+  /* margin: 5%;
+  left: 5%; */
+}
+
+.placeGroup form{
+  text-align: center;
+}
+
+.placeGroup{
+  width: 300px;
+  padding: 50px;
+}
+.plane,.bomb{
+  position: absolute;
+}
+.plane{
+  bottom:0px;
+}
+.bomb{
+  display: none;
+
+}
+.bomb.animate{
+  animation: 3s ease 0s normal forwards 1 boom;
+  display: block;
+}
+
+@keyframes boom{
+  0% { opacity:0; }
+  50% { opacity: 1; }
+  100% { opacity:0; }
+}

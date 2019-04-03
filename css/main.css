@@ -1,0 +1,96 @@
+body {
+  background-color:#26A2D3;
+  /* display: flex;
+  justify-content: center; */
+}
+  
+.dronetown {
+  width:100px;
+  /* float: right; */
+}
+.portletMain{
+  width: 604px;
+  height: 604px;
+  border: 2px solid black;
+  position: relative;
+  
+
+  margin: 5%;
+  /* left: 5%; */
+}
+
+.plane,.bomb{
+  position: absolute;
+}
+
+.bomb{
+  display: none;
+
+}
+.bomb.animate{
+  animation: 3s ease 0s normal forwards 1 boom;
+  display: block;
+  animation-iteration-count: infinite;
+}
+
+@keyframes boom{
+  0% { opacity:0; }
+  50% { opacity: 1; }
+  100% { opacity:0; }
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+}
+
+
+.jc-bs3-container.container{
+  display: contents;
+}
+
+
+.btnGroup{
+  display: flex;
+  justify-content: center;
+}
+
+.btnGroup button{
+  width: 100px;
+  margin-left: 15px;
+  border: 2px solid;
+}
+.extraBtnGorup{
+  display: none;
+}
+
+.jc-bs3-container.container .jconfirm-content p{
+  text-align: left;
+  font-size: small;
+}
+
+.jc-bs3-container.container .jconfirm-content label{
+  color: #f39c12;
+  font-weight: 600;
+}
+
+.form-control{
+  color: white;
+  background-color: #8080802b;
+}
+
+.form-control::-webkit-input-placeholder { color: white; }
+
+.form-control:focus{
+  color: white;
+  background-color: #8080802b;
+  border-color: #f39c12;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem #f39c1242;
+}
+
+
+#dirPart option {
+  color: #fff;
+  background: #4654639e;
+}
